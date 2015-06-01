@@ -1,0 +1,4 @@
+*.idx
+*.dict
+.idea/*
+*.pyc
