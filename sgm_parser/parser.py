@@ -44,7 +44,7 @@ class SGMParser(HTMLParser):
             self.in_title_section = True
         elif tag == 'topics':
             self.in_topics_section = True
-        elif tag == 'body':
+        elif tag == 'text':
             self.in_body_section = True
 
     def handle_endtag(self, tag):
@@ -56,14 +56,14 @@ class SGMParser(HTMLParser):
             self.in_title_section = False
         elif tag == 'topics':
             self.in_topics_section = False
-        elif tag == 'body':
+        elif tag == 'text':
             self.in_body_section = False
 
     def handle_data(self, data):
         if self.in_title_section:
             self.tmp_record.title = data
         elif self.in_body_section:
-            self.tmp_record.contents = data
+            self.tmp_record.contents += " " + data
         elif self.in_topics_section:
             self.tmp_record.topics.append(data)
 

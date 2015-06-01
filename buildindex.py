@@ -81,7 +81,7 @@ class BuildIndex:
             if not os.path.exists(BuildIndex.partial_index_path):
                 os.mkdir(BuildIndex.partial_index_path)
 
-    def dump(self,doc_id: int):
+    def dump(self, doc_id: int):
         if BuildIndex.saving_partial_index:
             self.index.dump(BuildIndex.partial_index_path + str(doc_id) + ".idx")
 
@@ -92,6 +92,9 @@ class BuildIndex:
         :param data:str
         :return:indexing.partial_index.PartialIndex
         """
+        remove_test = [".", ",", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-"]
+        for t in remove_test:
+            data = data.replace(t , "")
         word_re = re.compile('[A-Za-z]+')
         words = word_re.finditer(data)
         offset = 0
